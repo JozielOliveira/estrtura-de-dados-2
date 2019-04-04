@@ -23,7 +23,7 @@ class Tree {
 
     search (item, next) {
         if (this.item == item)
-            if (callback)
+            if (next)
                 next(this)
             else
                 return true
@@ -56,11 +56,11 @@ class Tree {
 
     ordem (func){
         if (this.esquerda != null)
-            this.esquerda[func]()//E
+            this.esquerda[func]()//Esquerda
         if (func === "inOrdem") 
             console.log(this.item)// Raiz
         if (this.direita != null)
-            this.direita[func]() //D
+            this.direita[func]() //Direita
     }
                 
     regra1 () {
@@ -133,3 +133,4 @@ console.log("Delete 10")
 arvore.delete(10)
 console.log("Mostrar em preOrdem")
 arvore.preOrdem()
+
