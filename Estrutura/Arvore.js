@@ -6,7 +6,7 @@ class Tree {
         this.esquerda = null
     }
 
-    insert (item = any) {
+    insert (item) {
         if (this.item == null) {// verifiaca se há elemento na raiz
             this.item = item
         } else if (item < this.item){
@@ -23,10 +23,7 @@ class Tree {
 
     search (item, next) {
         if (this.item == item)
-            if (next)
-                next(this)
-            else
-                return true
+            return next ? next(this) : true
         else if (item < this.item && this.esquerda != null)
             return this.esquerda.search(item, next)
         else if (this.direita != null)
@@ -49,8 +46,8 @@ class Tree {
 
     preOrdem () {
         if (this.item != null) {
-            console.log(this.item)
-            this.ordem("preOrdem")// Raiz
+            console.log(this.item)// Raiz
+            this.ordem("preOrdem")
         }
     }
 
@@ -64,7 +61,6 @@ class Tree {
     }
                 
     regra1 () {
-        console.log(this.item)
         if (this.esquerda != null)
             return this.esquerda.regra2("direita") // Vai pra esquerda e procura o maior valor pra atribuir no lugar
         else if (this.direita != null)
@@ -74,23 +70,23 @@ class Tree {
     }
 
     regra2 (ladoSubstituido) {
-        let ladoSubstituto = ladoSubstituido !== "direita" ?  ladoSubstituido : "esquerda"
+        const ladoSubstituto = ladoSubstituido !== "direita" ?  ladoSubstituido : "esquerda"
 
         if (this[ladoSubstituido] != null)
             return this[ladoSubstituido].regra2(ladoSubstituido)
-        else if (this[ladoSubstituto] != null) {
-            let value = this.item
-            this.item = this[ladoSubstituto].item
-            this.direita = this[ladoSubstituto].direita
-            this.esquerda = this[ladoSubstituto].esquerda
-            return value
-        } else {
-            let value = this.item
-            this.item = null
-            this.direita = null
-            this.esquerda = null
-            return value
-        }
+        else if (this[ladoSubstituto] != null)
+            return this.swap(this,ladoSubstituto)
+        else 
+            return this.swap(this)
+
+    }
+
+    swap (ref, lado) {
+        const value = ref.item
+        ref.item = lado ? ref[lado].item : null
+        ref.direita = lado ? ref[lado].item : null
+        ref.esquerda = lado ? ref[lado].item : null
+        return value
     }
 
     delete (item) {
@@ -133,4 +129,5 @@ console.log("Delete 10")
 arvore.delete(10)
 console.log("Mostrar em preOrdem")
 arvore.preOrdem()
+
 
