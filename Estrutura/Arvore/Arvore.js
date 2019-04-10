@@ -75,8 +75,7 @@ class Tree {
     regra2 (ladoSubstituido) {
         // Logica => se o valor que está sendo procurado(ladoSubstituido) for da direita
         // logo o que pode tomar o lugar vai ser o da esquerda, e vise versa
-        const ladoSubstituto = ladoSubstituido != "direita" ?  "direita" : ladoSubstituido
-        
+        const ladoSubstituto = ladoSubstituido === "direita" ?  "esquerda" : "direita"
         if (this[ladoSubstituido] != null)
             // Caso a variavel for ladoSubstituido = direita, 
             // o algoritmo vai sempre pra direita procurando o maior
@@ -112,38 +111,5 @@ class Tree {
         this.search(valor, ref => ref.valor = ref.regra1() )
     }
 }
-    
-        
-arvore = new Tree()
-arvore.insert(10)
-arvore.insert(5)
-arvore.insert(4)
-arvore.insert(7)
-arvore.insert(6)
-arvore.insert(3)
-arvore.insert(13)
-arvore.insert(12)
-arvore.insert(11)
-arvore.insert(14)
-arvore.insert(15)
-arvore.insert(8)
-arvore.insert(9)
-// Mostrar em preOrdem
-console.log("Mostrar em preOrdem")
-arvore.preOrdem()
-// Mostrar em ordem
-console.log("Mostrar em ordem")
-arvore.inOrdem()
-// Mostrar em posOrdem
-console.log("Mostrar em posOrdem")
-arvore.posOrdem()
-console.log("Buscar numero 3")
-console.log(arvore.search(3))
-console.log("Buscar numero 18")
-console.log(arvore.search(18))
-console.log("")
-console.log("Delete 10")
-arvore.delete(10)
-console.log("Mostrar em preOrdem")
-arvore.preOrdem()
 
+module.exports = Tree
