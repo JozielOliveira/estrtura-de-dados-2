@@ -33,7 +33,44 @@ class Tree {
         else
             return false
     }
+    
+    balancear () {
+        let arr = []
+        this.order(arr)
+        console.log(arr)
+
+        const tree = new Tree()
+        tree.ordenar(arr)
+        tree.preOrdem()
+    }
+
+    ordenar (arr) {
+        let tam = arr.length % 2 == 0 ? Math.ceil(arr.length / 2) : Math.floor(arr.length / 2)
         
+        if (tam != 0){
+            
+            this.insert(arr[tam]) // Raiz
+            
+            let esquerda = arr.slice(0,tam)
+            this.ordenar(esquerda) //  Esquerda
+            
+            let direita = arr.slice(tam+1)
+            if (direita[0])
+                this.ordenar(direita) // Direita
+
+        } else if (arr[0]){
+                this.insert(arr[0])
+        }
+    }
+
+    order (arr){
+        if (this.esquerda != null)
+            this.esquerda.order(arr)//Esquerda 
+        arr.push(this.valor)// Raiz
+        if (this.direita != null)
+            this.direita.order(arr) //Direita
+    }
+
     inOrdem () {
         if (this.valor != null)
             this.ordem("inOrdem")
@@ -108,8 +145,16 @@ class Tree {
     delete (valor) {
         // Chama o metodo de procura, e com a referencia de onde foi encontrada o valor
         // Aplica a primeira regra no contexto em que foi entrado o valor
-        this.search(valor, ref => ref.valor = ref.regra1() )
+        this.search(valor, ref => {
+            ref.valor = ref.regra1() 
+            if (!ref.esquerda)
+                ref.esquerda = null
+            if (!ref.direita)
+                ref.direita =null
+        })
     }
+
+
 }
 
 module.exports = Tree
